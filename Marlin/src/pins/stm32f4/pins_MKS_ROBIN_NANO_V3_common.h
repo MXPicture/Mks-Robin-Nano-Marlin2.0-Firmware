@@ -93,9 +93,15 @@
 #define Z_STEP_PIN                          PB5
 #define Z_DIR_PIN                           PB4
 
-#define E0_ENABLE_PIN                       PB3
-#define E0_STEP_PIN                         PD6
-#define E0_DIR_PIN                          PD3
+#if defined(CNC_3018_MODIFIED)
+  #define X2_ENABLE_PIN                       PB3
+  #define X2_STEP_PIN                         PD6
+  #define X2_DIR_PIN                          PD3
+#else
+  #define E0_ENABLE_PIN                       PB3
+  #define E0_STEP_PIN                         PD6
+  #define E0_DIR_PIN                          PD3
+#endif
 
 #define E1_ENABLE_PIN                       PA3
 #define E1_STEP_PIN                         PD15
@@ -135,8 +141,13 @@
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN                        PE5   // HEATER1
-#define HEATER_1_PIN                        PB0   // HEATER2
+#if defined(CNC_3018_MODIFIED)
+  #define SPINDLE_LASER_PWM_PIN               PE5
+  #define SPINDLE_LASER_ENA_PIN               PB0
+#else
+  #define HEATER_0_PIN                        PE5   // HEATER1
+  #define HEATER_1_PIN                        PB0   // HEATER2
+#endif
 #define HEATER_BED_PIN                      PA0   // HOT BED
 
 #define FAN_PIN                             PC14  // FAN

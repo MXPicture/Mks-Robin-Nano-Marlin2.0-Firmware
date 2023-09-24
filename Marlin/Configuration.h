@@ -37,6 +37,8 @@
  */
 #define CONFIGURATION_H_VERSION 02000902
 
+#define CNC_3018_MODIFIED
+
 //===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
@@ -102,7 +104,11 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT 3
+#if defined(CNC_3018_MODIFIED)
+  #define SERIAL_PORT -1
+#else
+  #define SERIAL_PORT 3
+#endif
 
 /**
  * Serial Port Baud Rate
@@ -163,7 +169,9 @@
  *
  * :[3, 4, 5, 6]
  */
-//#define LINEAR_AXES 3
+#if defined(CNC_3018_MODIFIED)
+  #define LINEAR_AXES 3
+#endif
 
 /**
  * Axis codes for additional axes:
@@ -192,7 +200,11 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 2
+#if defined(CNC_3018_MODIFIED)
+  #define EXTRUDERS 0
+#else
+  #define EXTRUDERS 2
+#endif
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -927,14 +939,22 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
+#if defined(CNC_3018_MODIFIED)
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 800, 800, 800 }
+#else
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
+#endif
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 200, 200, 4, 100 }
+#if defined(CNC_3018_MODIFIED)
+  #define DEFAULT_MAX_FEEDRATE          { 17, 17, 10 }
+#else
+  #define DEFAULT_MAX_FEEDRATE          { 200, 200, 4, 100 }
+#endif
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -947,7 +967,11 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 200, 2000 }
+#if defined(CNC_3018_MODIFIED)
+  #define DEFAULT_MAX_ACCELERATION      { 50, 50, 20 }
+#else
+  #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 200, 2000 }
+#endif
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -2640,7 +2664,10 @@
 // 480x320, 3.5", SPI Display From MKS
 // Normally used in MKS Robin Nano V2
 //
-#define MKS_TS35_V2_0
+#if defined(CNC_3018_MODIFIED)
+#else
+  #define MKS_TS35_V2_0
+#endif
 
 //
 // 320x240, 2.4", FSMC Display From MKS
@@ -2738,7 +2765,10 @@
  */
 //#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
-#define TFT_LVGL_UI
+#if defined(CNC_3018_MODIFIED)
+#else
+  #define TFT_LVGL_UI
+#endif
 
 #if ENABLED(TFT_LVGL_UI)
   #define MKS_WIFI_MODULE  // MKS WiFi module
@@ -2782,7 +2812,10 @@
 //
 // Touch Screen Settings
 //
-#define TOUCH_SCREEN
+#if defined(CNC_3018_MODIFIED)
+#else
+  #define TOUCH_SCREEN
+#endif
 #if ENABLED(TOUCH_SCREEN)
   #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU 250 // (ms) Button repeat delay for menus

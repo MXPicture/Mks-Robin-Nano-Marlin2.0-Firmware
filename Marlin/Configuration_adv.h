@@ -668,8 +668,9 @@
  * this offset is applied to the X2 motor. To find the offset home the X axis, and measure the error
  * in X2. Dual endstop offsets can be set at runtime with 'M666 X<offset> Y<offset> Z<offset>'.
  */
-
-//#define X_DUAL_STEPPER_DRIVERS
+#if defined(CNC_3018_MODIFIED)
+  #define X_DUAL_STEPPER_DRIVERS
+#endif
 #if ENABLED(X_DUAL_STEPPER_DRIVERS)
   //#define INVERT_X2_VS_X_DIR    // Enable if X2 direction signal is opposite to X
   //#define X_DUAL_ENDSTOPS
@@ -959,7 +960,11 @@
 
 // @section motion
 
-#define AXIS_RELATIVE_MODES { false, false, false, false }
+#if defined(CNC_3018_MODIFIED)
+  #define AXIS_RELATIVE_MODES { false, false, false }
+#else
+  #define AXIS_RELATIVE_MODES { false, false, false, false }
+#endif
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -1383,7 +1388,10 @@
    * an option on the LCD screen to continue the print from the last-known
    * point in the file.
    */
-  #define POWER_LOSS_RECOVERY
+  #if defined(CNC_3018_MODIFIED)
+  #else
+    #define POWER_LOSS_RECOVERY
+  #endif
   #if ENABLED(POWER_LOSS_RECOVERY)
     #define PLR_ENABLED_DEFAULT   true // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
     //#define BACKUP_POWER_SUPPLY       // Backup power / UPS to move the steppers on power loss
@@ -3322,10 +3330,18 @@
  *
  * See https://marlinfw.org/docs/configuration/laser_spindle.html for more config details.
  */
-//#define SPINDLE_FEATURE
+#if defined(CNC_3018_MODIFIED)
+  #define SPINDLE_FEATURE
+#else
+  #define SPINDLE_FEATURE
+#endif
 //#define LASER_FEATURE
 #if EITHER(SPINDLE_FEATURE, LASER_FEATURE)
-  #define SPINDLE_LASER_ACTIVE_STATE    LOW    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
+  #if defined(CNC_3018_MODIFIED)
+    #define SPINDLE_LASER_ACTIVE_STATE    HIGH    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
+  #else
+    #define SPINDLE_LASER_ACTIVE_STATE    LOW    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
+  #endif
 
   #define SPINDLE_LASER_USE_PWM                // Enable if your controller supports setting the speed/power
   #if ENABLED(SPINDLE_LASER_USE_PWM)
