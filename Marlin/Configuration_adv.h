@@ -3333,7 +3333,7 @@
 #if defined(CNC_3018_MODIFIED)
   #define SPINDLE_FEATURE
 #else
-  #define SPINDLE_FEATURE
+  // #define SPINDLE_FEATURE
 #endif
 //#define LASER_FEATURE
 #if EITHER(SPINDLE_FEATURE, LASER_FEATURE)
