@@ -142,6 +142,7 @@ vc-fileutils.settings
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/*.db
+!.vscode/settings.json
 
 #Simulation
 imgui.ini
