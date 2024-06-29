@@ -29,6 +29,25 @@ The images should be added to gcode file when slicing, and MKS has developed the
 
 ## Firmware Can be run on Robin Nano V1.x / V2.x boards and V3.x boards
 
+## MXPicture: Prepare
+- install vscode platformio
+- !!! don't use vscode platformio plugin !!!
+- use commands
+
+## MXPicture: cnc_3018_modified (MKS Robin Nano V3.x)
+1. Build:`~/.platformio/penv/bin/pio run --environment cnc_3018_modified`
+
+2. Update firmware:
+- Enter the `.pio/build/cnc_3018_modified` directory, copy the `assets` folder and `Robin_nano_v3.bin` to the sd card or usb disk
+- Insert sdcard or usb disk to the motherboard, and you can see the update interface
+
+## MXPicture: ultimate_bee (MKS Robin Nano V3.x)
+1. Build:`~/.platformio/penv/bin/pio run --environment ultimate_bee`
+
+2. Update firmware:
+- Enter the `.pio/build/ultimate_bee` directory, copy the `assets` folder and `Robin_nano_v3.bin` to the sd card or usb disk
+- Insert sdcard or usb disk to the motherboard, and you can see the update interface
+
 ## MKS Robin Nano V1.x build and update firmware
 
 1. Build config:

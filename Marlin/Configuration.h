@@ -37,8 +37,8 @@
  */
 #define CONFIGURATION_H_VERSION 02000902
 
-#define CNC_3018_MODIFIED
-#define CNC_3018_DRIVER_TYPE DRV8825
+// #define CNC_3018_MODIFIED
+// #define CNC_3018_DRIVER_TYPE DRV8825
 
 //===========================================================================
 //============================= Getting Started =============================
