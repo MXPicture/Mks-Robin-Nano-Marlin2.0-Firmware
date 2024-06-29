@@ -71,8 +71,13 @@
 
 #define X_STOP_PIN                    X_DIAG_PIN
 #define Y_STOP_PIN                    Y_DIAG_PIN
+
+#if defined(ULTIMATE_BEE)
+#define Z_STOP_PIN                     Z_DIAG_PIN // only one line 4 both stops
+#else
 #define Z_MIN_PIN                     Z_DIAG_PIN
 #define Z_MAX_PIN                    E0_DIAG_PIN
+#endif
 
 //
 // Steppers
@@ -97,15 +102,23 @@
   #define X2_ENABLE_PIN                       PB3
   #define X2_STEP_PIN                         PD6
   #define X2_DIR_PIN                          PD3
+#elif defined(ULTIMATE_BEE)
+  #define Y2_ENABLE_PIN                       PB3
+  #define Y2_STEP_PIN                         PD6
+  #define Y2_DIR_PIN                          PD3
 #else
   #define E0_ENABLE_PIN                       PB3
   #define E0_STEP_PIN                         PD6
   #define E0_DIR_PIN                          PD3
 #endif
 
-#define E1_ENABLE_PIN                       PA3
-#define E1_STEP_PIN                         PD15
-#define E1_DIR_PIN                          PA1
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
+  #define SPINDLE_LASER_ENA_PIN               PD15
+#else
+  #define E1_ENABLE_PIN                       PA3
+  #define E1_STEP_PIN                         PD15
+  #define E1_DIR_PIN                          PA1
+#endif
 
 #if HAS_TMC_UART
   //
@@ -141,14 +154,14 @@
 //
 // Heaters / Fans
 //
-#if defined(CNC_3018_MODIFIED)
-  #define SPINDLE_LASER_PWM_PIN               PE5
-  #define SPINDLE_LASER_ENA_PIN               PB0
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
+  #define SPINDLE_LASER_PWM_PIN               PE5 // use HE0-pins to get pwm signal, dont use regular output (because >10v and not isolated)
 #else
   #define HEATER_0_PIN                        PE5   // HEATER1
   #define HEATER_1_PIN                        PB0   // HEATER2
 #endif
 #define HEATER_BED_PIN                      PA0   // HOT BED
+
 
 #define FAN_PIN                             PC14  // FAN
 #define FAN1_PIN                            PB1   // FAN1

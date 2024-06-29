@@ -39,6 +39,8 @@
 
 // #define CNC_3018_MODIFIED
 // #define CNC_3018_DRIVER_TYPE DRV8825
+// #define ULTIMATE_BEE
+// #define ULTIMATE_BEE_DRIVER_TYPE TB6600
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -105,7 +107,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
   #define SERIAL_PORT -1
 #else
   #define SERIAL_PORT 3
@@ -170,7 +172,7 @@
  *
  * :[3, 4, 5, 6]
  */
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
   #define LINEAR_AXES 3
 #endif
 
@@ -201,7 +203,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
   #define EXTRUDERS 0
 #else
   #define EXTRUDERS 2
@@ -790,6 +792,22 @@
 // Specify here all the endstop connectors that are connected to any endstop or probe.
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
+#if defined(ULTIMATE_BEE)
+#define USE_XMIN_PLUG
+#define USE_YMIN_PLUG
+#define USE_ZMIN_PLUG
+//#define USE_IMIN_PLUG
+//#define USE_JMIN_PLUG
+//#define USE_KMIN_PLUG
+#define USE_XMAX_PLUG
+#define USE_YMAX_PLUG
+#define USE_ZMAX_PLUG
+//#define USE_IMAX_PLUG
+//#define USE_JMAX_PLUG
+//#define USE_KMAX_PLUG
+
+#else
+
 #define USE_XMIN_PLUG
 // #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
@@ -802,6 +820,7 @@
 //#define USE_IMAX_PLUG
 //#define USE_JMAX_PLUG
 //#define USE_KMAX_PLUG
+#endif
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
@@ -879,6 +898,11 @@
 #define Y_DRIVER_TYPE  CNC_3018_DRIVER_TYPE
 #define Z_DRIVER_TYPE  CNC_3018_DRIVER_TYPE
 #define X2_DRIVER_TYPE CNC_3018_DRIVER_TYPE
+#elif defined(ULTIMATE_BEE)
+#define X_DRIVER_TYPE  ULTIMATE_BEE_DRIVER_TYPE
+#define Y_DRIVER_TYPE  ULTIMATE_BEE_DRIVER_TYPE
+#define Z_DRIVER_TYPE  ULTIMATE_BEE_DRIVER_TYPE
+#define Y2_DRIVER_TYPE ULTIMATE_BEE_DRIVER_TYPE
 #else
 #define X_DRIVER_TYPE  TMC2209
 #define Y_DRIVER_TYPE  TMC2209
@@ -949,6 +973,8 @@
  */
 #if defined(CNC_3018_MODIFIED)
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 800, 800, 800 }
+#elif defined(ULTIMATE_BEE)
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 800, 800, 800 } // todo ULTIMATE_BEE-DEFAULT_AXIS_STEPS_PER_UNIT
 #else
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
 #endif
@@ -960,6 +986,8 @@
  */
 #if defined(CNC_3018_MODIFIED)
   #define DEFAULT_MAX_FEEDRATE          { 17, 17, 10 }
+#elif defined(ULTIMATE_BEE)
+  #define DEFAULT_MAX_FEEDRATE   { 17, 17, 10 } // todo ULTIMATE_BEE-DEFAULT_MAX_FEEDRATE
 #else
   #define DEFAULT_MAX_FEEDRATE          { 200, 200, 4, 100 }
 #endif
@@ -977,6 +1005,8 @@
  */
 #if defined(CNC_3018_MODIFIED)
   #define DEFAULT_MAX_ACCELERATION      { 50, 50, 20 }
+#elif defined(ULTIMATE_BEE)
+  #define DEFAULT_MAX_ACCELERATION   { 50, 50, 20 } // todo ULTIMATE_BEE-DEFAULT_MAX_ACCELERATION
 #else
   #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 200, 2000 }
 #endif
@@ -2672,7 +2702,7 @@
 // 480x320, 3.5", SPI Display From MKS
 // Normally used in MKS Robin Nano V2
 //
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
 #else
   #define MKS_TS35_V2_0
 #endif
@@ -2773,7 +2803,7 @@
  */
 //#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE) // todo display ULTIMATE_BEE
 #else
   #define TFT_LVGL_UI
 #endif
@@ -2820,7 +2850,7 @@
 //
 // Touch Screen Settings
 //
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
 #else
   #define TOUCH_SCREEN
 #endif

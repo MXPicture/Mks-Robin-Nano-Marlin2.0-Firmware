@@ -680,7 +680,9 @@
   #endif
 #endif
 
-//#define Y_DUAL_STEPPER_DRIVERS
+#if defined(ULTIMATE_BEE)
+  #define Y_DUAL_STEPPER_DRIVERS
+#endif
 #if ENABLED(Y_DUAL_STEPPER_DRIVERS)
   //#define INVERT_Y2_VS_Y_DIR   // Enable if Y2 direction signal is opposite to Y
   //#define Y_DUAL_ENDSTOPS
@@ -960,7 +962,7 @@
 
 // @section motion
 
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
   #define AXIS_RELATIVE_MODES { false, false, false }
 #else
   #define AXIS_RELATIVE_MODES { false, false, false, false }
@@ -1388,7 +1390,7 @@
    * an option on the LCD screen to continue the print from the last-known
    * point in the file.
    */
-  #if defined(CNC_3018_MODIFIED)
+  #if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
   #else
     #define POWER_LOSS_RECOVERY
   #endif
@@ -3330,14 +3332,14 @@
  *
  * See https://marlinfw.org/docs/configuration/laser_spindle.html for more config details.
  */
-#if defined(CNC_3018_MODIFIED)
+#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
   #define SPINDLE_FEATURE
 #else
   // #define SPINDLE_FEATURE
 #endif
 //#define LASER_FEATURE
 #if EITHER(SPINDLE_FEATURE, LASER_FEATURE)
-  #if defined(CNC_3018_MODIFIED)
+  #if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
     #define SPINDLE_LASER_ACTIVE_STATE    HIGH    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
   #else
     #define SPINDLE_LASER_ACTIVE_STATE    LOW    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
