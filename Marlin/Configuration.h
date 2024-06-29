@@ -2703,6 +2703,8 @@
 // Normally used in MKS Robin Nano V2
 //
 #if defined(CNC_3018_MODIFIED)
+#elif defined(ULTIMATE_BEE)
+  // #define MKS_TS35_V2_0 not needed --> cncjs
 #else
   #define MKS_TS35_V2_0
 #endif
@@ -2803,10 +2805,9 @@
  */
 //#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
-#if defined(CNC_3018_MODIFIED) 
-  #define TFT_COLOR_UI // todo test cnc3018 TFT_COLOR_UI
+#if defined(CNC_3018_MODIFIED)
 #elif defined(ULTIMATE_BEE)
-  #define TFT_COLOR_UI
+  // #define TFT_COLOR_UI not needed --> cncjs
 #else
   #define TFT_LVGL_UI
 #endif
@@ -2853,7 +2854,9 @@
 //
 // Touch Screen Settings
 //
-#if defined(CNC_3018_MODIFIED)// || defined(ULTIMATE_BEE) // todo maybe done use a display becuase of cncjs
+#if defined(CNC_3018_MODIFIED)
+#elif defined(ULTIMATE_BEE)
+  // #define TOUCH_SCREEN not needed --> cncjs
 #else
   #define TOUCH_SCREEN
 #endif
