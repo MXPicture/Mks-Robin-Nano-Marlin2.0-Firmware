@@ -962,7 +962,7 @@
 
 // @section motion
 
-#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
+#if LINEAR_AXES == 3
   #define AXIS_RELATIVE_MODES { false, false, false }
 #else
   #define AXIS_RELATIVE_MODES { false, false, false, false }
@@ -1204,7 +1204,13 @@
 // @section lcd
 
 #if ANY(HAS_LCD_MENU, EXTENSIBLE_UI, HAS_DWIN_E3V2)
-  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
+  #if defined(CNC_3018_MODIFIED) 
+    // todo #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel 
+  #elif defined(ULTIMATE_BEE)
+    #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60 } // todo display: (mm/min) Feedrates for manual moves along X, Y, Z, E from panel 
+  #else
+    #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
+  #endif
   #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"

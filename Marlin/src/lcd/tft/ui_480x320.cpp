@@ -300,9 +300,17 @@ void MarlinUI::draw_status_screen() {
   // flow rate
   tft.canvas(284, y, 100, 32);
   tft.set_background(COLOR_BACKGROUND);
+#if HAS_EXTRUDERS
   color = planner.flow_percentage[0] == 100 ? COLOR_RATE_100 : COLOR_RATE_ALTERED;
+#else
+  color = COLOR_RATE_ALTERED;
+#endif
   tft.add_image(0, 0, imgFlowRate, color);
+#if HAS_EXTRUDERS
   tft_string.set(i16tostr3rj(planner.flow_percentage[active_extruder]));
+#else 
+  tft_string.set(i16tostr3rj(0));
+#endif
   tft_string.add('%');
   tft.add_text(36, 1, color , tft_string);
   TERN_(TOUCH_SCREEN, touch.add_control(FLOWRATE, 284, 176, 100, 32, active_extruder));
@@ -629,7 +637,9 @@ static void drawAxisValue(const AxisEnum axis) {
     case X_AXIS: pos = motionAxisState.xValuePos; color = X_BTN_COLOR; break;
     case Y_AXIS: pos = motionAxisState.yValuePos; color = Y_BTN_COLOR; break;
     case Z_AXIS: pos = motionAxisState.zValuePos; color = Z_BTN_COLOR; break;
+#if HAS_EXTRUDERS
     case E_AXIS: pos = motionAxisState.eValuePos; color = E_BTN_COLOR; break;
+#endif
     default: return;
   }
   tft.canvas(pos.x, pos.y, BTN_WIDTH + X_MARGIN, BTN_HEIGHT);
@@ -720,8 +730,10 @@ static void moveAxis(const AxisEnum axis, const int8_t direction) {
   drawAxisValue(axis);
 }
 
+#if HAS_EXTRUDERS
 static void e_plus()  { moveAxis(E_AXIS, 1);  }
 static void e_minus() { moveAxis(E_AXIS, -1); }
+#endif
 static void x_minus() { moveAxis(X_AXIS, -1); }
 static void x_plus()  { moveAxis(X_AXIS, 1);  }
 static void y_plus()  { moveAxis(Y_AXIS, 1);  }
@@ -738,7 +750,9 @@ static void z_minus() { moveAxis(Z_AXIS, -1); }
 
     quick_feedback();
     drawCurESelection();
+#if HAS_EXTRUDERS
     drawAxisValue(E_AXIS);
+#endif
   }
 
   static void do_home() {
@@ -747,7 +761,9 @@ static void z_minus() { moveAxis(Z_AXIS, -1); }
     queue.inject_P(G28_STR);
     // Disable touch until home is done
     TERN_(HAS_TFT_XPT2046, touch.disable());
+#if HAS_EXTRUDERS
     drawAxisValue(E_AXIS);
+#endif
     drawAxisValue(X_AXIS);
     drawAxisValue(Y_AXIS);
     drawAxisValue(Z_AXIS);
@@ -817,7 +833,9 @@ void MarlinUI::move_axis_screen() {
   // ROW 1 -> E- Y- CurY Z+
   int x = X_MARGIN, y = Y_MARGIN, spacing = 0;
 
+#if HAS_EXTRUDERS
   drawBtn(x, y, "E+", (intptr_t)e_plus, imgUp, E_BTN_COLOR, !busy);
+#endif
 
   spacing = (TFT_WIDTH - X_MARGIN * 2 - 3 * BTN_WIDTH) / 2;
   x += BTN_WIDTH + spacing;
@@ -865,12 +883,17 @@ void MarlinUI::move_axis_screen() {
   x = X_MARGIN;
   spacing = (TFT_WIDTH - X_MARGIN * 2 - 3 * BTN_WIDTH) / 2;
 
+#if HAS_EXTRUDERS
   drawBtn(x, y, "E-", (intptr_t)e_minus, imgDown, E_BTN_COLOR, !busy);
+#endif
 
   // Cur E
   motionAxisState.eValuePos.x = x;
   motionAxisState.eValuePos.y = y + BTN_HEIGHT + 2;
+
+#if HAS_EXTRUDERS
   drawAxisValue(E_AXIS);
+#endif
 
   // Cur X
   motionAxisState.xValuePos.x = BTN_WIDTH + (TFT_WIDTH - X_MARGIN * 2 - 5 * BTN_WIDTH) / 4; //X- pos

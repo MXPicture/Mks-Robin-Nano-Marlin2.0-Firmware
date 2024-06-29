@@ -2702,7 +2702,7 @@
 // 480x320, 3.5", SPI Display From MKS
 // Normally used in MKS Robin Nano V2
 //
-#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
+#if defined(CNC_3018_MODIFIED)
 #else
   #define MKS_TS35_V2_0
 #endif
@@ -2803,7 +2803,10 @@
  */
 //#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
-#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE) // todo display ULTIMATE_BEE
+#if defined(CNC_3018_MODIFIED) 
+  #define TFT_COLOR_UI // todo test cnc3018 TFT_COLOR_UI
+#elif defined(ULTIMATE_BEE)
+  #define TFT_COLOR_UI
 #else
   #define TFT_LVGL_UI
 #endif
@@ -2850,7 +2853,7 @@
 //
 // Touch Screen Settings
 //
-#if defined(CNC_3018_MODIFIED) || defined(ULTIMATE_BEE)
+#if defined(CNC_3018_MODIFIED)// || defined(ULTIMATE_BEE) // todo maybe done use a display becuase of cncjs
 #else
   #define TOUCH_SCREEN
 #endif
